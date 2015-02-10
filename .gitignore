@@ -1,0 +1,14 @@
+# gem
+*.gem
+pkg/*
+
+# bundler
+.bundle
+Gemfile.lock
+
+# ruby
+.ruby-version
+.ruby-gemset
+
+# vim
+*.sw[p,o]
