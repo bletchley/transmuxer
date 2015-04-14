@@ -48,7 +48,8 @@ module Transmuxer
             forced_keyframe_rate: 0.1,
             size: "640x360",
             base_url: output_store_path,
-            filename: "360p.mp4"
+            filename: "360p.mp4",
+            public: true
           },
           {
             label: "720p",
@@ -59,7 +60,8 @@ module Transmuxer
             forced_keyframe_rate: 0.1,
             size: "1280x720",
             base_url: output_store_path,
-            filename: "720p.mp4"
+            filename: "720p.mp4",
+            public: true
           },
           {
             label: "1080p",
@@ -70,7 +72,8 @@ module Transmuxer
             forced_keyframe_rate: 0.1,
             size: "1920x1080",
             base_url: output_store_path,
-            filename: "1080p.mp4"
+            filename: "1080p.mp4",
+            public: true
           },
           {
             label: "hls-360p",
