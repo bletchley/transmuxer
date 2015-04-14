@@ -53,7 +53,7 @@ Transmuxer.config do |c|
   c.s3.bucket_name = "S3_BUCKET_NAME"
 end
 ```
-### Add to AR model
+### Add to Active Record model
 
 ```ruby
 class Medium < ActiveRecord::Base
@@ -65,6 +65,13 @@ class Medium < ActiveRecord::Base
   end
 end
 ```
+
+#### Additional class methods
+
+`Transmuxer::Transmuxable` adds several class methods for finding objects that match a given state:
+
+* `.processed` returns videos that have finished processing.
+* `.failed` returns videos that failed processing.
 
 ### Start Transmuxing
 

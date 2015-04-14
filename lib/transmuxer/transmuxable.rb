@@ -12,6 +12,14 @@ module Transmuxer
     end
 
     module ClassMethods
+      def failed
+        where(zencoder_job_state: 'failed')
+      end
+
+      def processed
+        where(zencoder_job_state: 'finished')
+      end
+
       def transmuxable(unprocessed_file_url)
         define_method :unprocessed_file_url do
           send unprocessed_file_url
