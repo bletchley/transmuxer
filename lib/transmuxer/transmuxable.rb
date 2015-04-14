@@ -65,7 +65,7 @@ module Transmuxer
     end
 
     def hls_file_url
-      "https://#{Transmuxer.config.s3.bucket_name}.s3.amazonaws.com/#{self.class.name.tableize}/#{id}/processed/index.m3u8"
+      "#{processed_file_store_url}/index.m3u8"
     end
 
     def ready?
@@ -85,6 +85,10 @@ module Transmuxer
     end
 
     private
+
+    def processed_file_store_url
+      "https://#{Transmuxer.config.s3.bucket_name}.s3.amazonaws.com/#{self.class.name.tableize}/#{id}/processed"
+    end
 
     def notifications_url
       Transmuxer.notifications_base_uri + "/#{self.class.name.tableize}/#{id}"
