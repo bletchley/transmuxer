@@ -50,6 +50,7 @@ module Transmuxer
 
     def update_playable(playable_format)
       self.playable_formats[playable_format] = true
+      self.zencoder_job_state = "playback_ready" if playable? && !processed?
       self.save
 
       run_callbacks :playable if playable?
