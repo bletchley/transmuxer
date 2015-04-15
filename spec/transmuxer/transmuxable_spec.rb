@@ -35,17 +35,5 @@ module Transmuxer
         expect(Video.ready).to eq([playback_ready, processed])
       end
     end
-
-    describe '.processed' do
-      it 'returns videos that have finished processing' do
-        Video.create(zencoder_job_state: 'failed')
-        Video.create(zencoder_job_state: 'processing')
-        Video.create(zencoder_job_state: 'playback_ready')
-
-        match = Video.create(zencoder_job_state: 'finished')
-
-        expect(Video.processed).to eq([match])
-      end
-    end
   end
 end

@@ -20,10 +20,6 @@ module Transmuxer
         where(zencoder_job_state: ['playback_ready', 'finished'])
       end
 
-      def processed
-        where(zencoder_job_state: 'finished')
-      end
-
       def transmuxable(unprocessed_file_url)
         define_method :unprocessed_file_url do
           send unprocessed_file_url
