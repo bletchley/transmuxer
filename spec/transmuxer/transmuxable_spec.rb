@@ -15,6 +15,7 @@ module Transmuxer
     describe '.failed' do
       it 'returns videos that failed processing' do
         Video.create(zencoder_job_state: 'processing')
+        Video.create(zencoder_job_state: 'playback_ready')
         Video.create(zencoder_job_state: 'finished')
 
         match = Video.create(zencoder_job_state: 'failed')
@@ -23,10 +24,23 @@ module Transmuxer
       end
     end
 
+    describe '.ready' do
+      it 'returns videos that can be streamed' do
+        Video.create(zencoder_job_state: 'failed')
+        Video.create(zencoder_job_state: 'processing')
+
+        playback_ready = Video.create(zencoder_job_state: 'playback_ready')
+        processed      = Video.create(zencoder_job_state: 'finished')
+
+        expect(Video.ready).to eq([playback_ready, processed])
+      end
+    end
+
     describe '.processed' do
       it 'returns videos that have finished processing' do
         Video.create(zencoder_job_state: 'failed')
         Video.create(zencoder_job_state: 'processing')
+        Video.create(zencoder_job_state: 'playback_ready')
 
         match = Video.create(zencoder_job_state: 'finished')
 

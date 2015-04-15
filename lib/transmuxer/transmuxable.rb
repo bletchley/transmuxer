@@ -16,6 +16,10 @@ module Transmuxer
         where(zencoder_job_state: 'failed')
       end
 
+      def ready
+        where(zencoder_job_state: ['playback_ready', 'finished'])
+      end
+
       def processed
         where(zencoder_job_state: 'finished')
       end
