@@ -36,4 +36,20 @@ module Transmuxer
       end
     end
   end
+
+  describe '#transmux' do
+    let(:video) { Video.create }
+
+    context 'when transmuxer job fails to start' do
+      let(:job) { double(:job, start: false, errors: "Oops!") }
+
+      before do
+        expect(Transmuxer::Job).to receive(:new) { job }
+      end
+
+      it do
+        expect { video.transmux }.to raise_error(Transmuxer::JobNotStarted, "Oops!")
+      end
+    end
+  end
 end

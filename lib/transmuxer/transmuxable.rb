@@ -37,6 +37,8 @@ module Transmuxer
       if job.start
         update_column :zencoder_job_id, job.id
         update_column :zencoder_job_state, "processing"
+      else
+        raise JobNotStarted, job.errors
       end
     end
 
