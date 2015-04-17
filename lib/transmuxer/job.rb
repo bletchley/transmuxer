@@ -33,6 +33,10 @@ module Transmuxer
       started? && @job.body["id"]
     end
 
+    def errors
+      @job && @job.errors
+    end
+
     private
 
     def encoding_settings

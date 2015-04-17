@@ -5,6 +5,7 @@ require "transmuxer/version"
 require "transmuxer/config"
 require "transmuxer/job"
 require "transmuxer/transmuxable"
+require "transmuxer/error"
 
 require "transmuxer/engine"
 
