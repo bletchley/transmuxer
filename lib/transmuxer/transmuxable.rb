@@ -116,7 +116,7 @@ module Transmuxer
     end
 
     def playable?
-      playable_formats.length == 3
+      playable_formats.length == 6
     end
 
     private
