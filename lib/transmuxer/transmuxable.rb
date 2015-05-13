@@ -75,8 +75,20 @@ module Transmuxer
       "s3://#{Transmuxer.config.s3.bucket_name}/#{self.class.name.tableize}/#{id}/processed"
     end
 
+    def mp4_240_file_url
+      "#{processed_file_store_url}/240p.mp4"
+    end
+
+    def mp4_web_360_file_url
+      "#{processed_file_store_url}/web-360p.mp4"
+    end
+
     def mp4_360_file_url
       "#{processed_file_store_url}/360p.mp4"
+    end
+
+    def mp4_480_file_url
+      "#{processed_file_store_url}/480p.mp4"
     end
 
     def mp4_720_file_url
