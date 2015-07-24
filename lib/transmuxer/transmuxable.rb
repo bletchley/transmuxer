@@ -37,7 +37,8 @@ module Transmuxer
       if job.start
         update_columns(
           zencoder_job_id: job.id,
-          zencoder_job_state: "processing"
+          zencoder_job_state: "processing",
+          playable_formats: nil
         )
       else
         raise JobNotStarted, job.errors
