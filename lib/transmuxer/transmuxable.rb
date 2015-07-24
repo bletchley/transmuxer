@@ -57,7 +57,7 @@ module Transmuxer
       self.with_lock do
         self.playable_formats[playable_format] = true
         self.zencoder_job_state = "playback_ready" if playable? && !processed?
-        self.save
+        self.save validate: false
       end
 
       run_callbacks :playable if playable?
@@ -73,7 +73,7 @@ module Transmuxer
         run_callbacks :fail
       end
 
-      self.save
+      self.save validate: false
     end
 
     def processed_file_store_path
