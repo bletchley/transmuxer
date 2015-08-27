@@ -27,7 +27,7 @@ module Transmuxer
     end
 
     def handle_job_notification
-      resource.update_transmuxer_job(state: params[:job][:state], metadata: {duration_in_ms: params[:input][:duration_in_ms]})
+      resource.update_transmuxer_job(state: params[:job][:state], metadata: params[:input])
     end
   end
 end
