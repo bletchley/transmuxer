@@ -109,7 +109,7 @@ module Transmuxer
     end
 
     def ready?
-      processed? || playable?
+      %w(playback_ready finished).include?(zencoder_job_state)
     end
 
     def processed?
