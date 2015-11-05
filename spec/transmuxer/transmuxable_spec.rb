@@ -52,4 +52,26 @@ module Transmuxer
       end
     end
   end
+
+  describe '#ready?' do
+    it 'returns true if video is ready' do
+      video = Video.create(zencoder_job_state: 'playback_ready')
+      expect(video.ready?).to be true
+    end
+
+    it 'returns true if video is finished' do
+      video = Video.create(zencoder_job_state: 'finished')
+      expect(video.ready?).to be true
+    end
+
+    it 'returns false if video is processing' do
+      video = Video.create(zencoder_job_state: 'processing')
+      expect(video.ready?).to be false
+    end
+
+    it 'returns false if video  failed' do
+      video = Video.create(zencoder_job_state: 'failed')
+      expect(video.ready?).to be false
+    end
+  end
 end
