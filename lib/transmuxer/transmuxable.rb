@@ -6,9 +6,8 @@ module Transmuxer
 
     included do
       attr_reader :unprocessed_file_url, :processed_file_metadata
-      store :playable_formats
 
-      define_model_callbacks :playable, :process, :fail
+      define_model_callbacks :process, :fail
     end
 
     module ClassMethods
@@ -17,7 +16,7 @@ module Transmuxer
       end
 
       def ready
-        where(zencoder_job_state: ['playback_ready', 'finished'])
+        where(zencoder_job_state: 'finished')
       end
 
       def transmuxable(unprocessed_file_url)
@@ -37,8 +36,7 @@ module Transmuxer
       if job.start
         update_columns(
           zencoder_job_id: job.id,
-          zencoder_job_state: "processing",
-          playable_formats: nil
+          zencoder_job_state: "processing"
         )
       else
         raise JobNotStarted, job.errors
@@ -51,16 +49,6 @@ module Transmuxer
 
     def transmux_retry
       Transmuxer::Job.resubmit(zencoder_job_id)
-    end
-
-    def update_playable(playable_format)
-      self.with_lock do
-        self.playable_formats[playable_format] = true
-        self.zencoder_job_state = "playback_ready" if playable? && !processed?
-        self.save validate: false
-      end
-
-      run_callbacks :playable if playable?
     end
 
     def update_transmuxer_job(attrs = {})
@@ -109,7 +97,7 @@ module Transmuxer
     end
 
     def ready?
-      %w(playback_ready finished).include?(zencoder_job_state)
+      processed?
     end
 
     def processed?
@@ -118,10 +106,6 @@ module Transmuxer
 
     def failed?
       zencoder_job_state == "failed"
-    end
-
-    def playable?
-      playable_formats.length == 6
     end
 
     private

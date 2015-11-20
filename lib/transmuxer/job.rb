@@ -172,12 +172,6 @@ module Transmuxer
                 permission: "READ",
                 grantee: "http://acs.amazonaws.com/groups/global/AllUsers"
               }
-            ],
-            notifications: [
-              {
-                event: "seamless_playback",
-                url: notifications_url
-              }
             ]
           },
           {
@@ -203,12 +197,6 @@ module Transmuxer
               {
                 permission: "READ",
                 grantee: "http://acs.amazonaws.com/groups/global/AllUsers"
-              }
-            ],
-            notifications: [
-              {
-                event: "seamless_playback",
-                url: notifications_url
               }
             ]
           },
@@ -236,12 +224,6 @@ module Transmuxer
                 permission: "READ",
                 grantee: "http://acs.amazonaws.com/groups/global/AllUsers"
               }
-            ],
-            notifications: [
-              {
-                event: "seamless_playback",
-                url: notifications_url
-              }
             ]
           },
           {
@@ -267,12 +249,6 @@ module Transmuxer
               {
                 permission: "READ",
                 grantee: "http://acs.amazonaws.com/groups/global/AllUsers"
-              }
-            ],
-            notifications: [
-              {
-                event: "seamless_playback",
-                url: notifications_url
               }
             ]
           },
@@ -300,12 +276,6 @@ module Transmuxer
                 permission: "READ",
                 grantee: "http://acs.amazonaws.com/groups/global/AllUsers"
               }
-            ],
-            notifications: [
-              {
-                event: "seamless_playback",
-                url: notifications_url
-              }
             ]
           },
           {
@@ -331,12 +301,6 @@ module Transmuxer
               {
                 permission: "READ",
                 grantee: "http://acs.amazonaws.com/groups/global/AllUsers"
-              }
-            ],
-            notifications: [
-              {
-                event: "seamless_playback",
-                url: notifications_url
               }
             ]
           },
