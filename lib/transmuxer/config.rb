@@ -4,7 +4,7 @@ module Transmuxer
   class Config
     include Singleton
 
-    attr_accessor :notifications_host
+    attr_accessor :notifications_host, :cdn_host
     attr_reader :s3, :zencoder
 
     def initialize
@@ -21,5 +21,6 @@ module Transmuxer
     class S3Config
       attr_accessor :bucket_name
     end
+
   end
 end

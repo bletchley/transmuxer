@@ -129,8 +129,16 @@ module Transmuxer
 
     private
 
+    def asset_url
+      if Transmuxer.config.cdn_host
+        "#{Transmuxer.config.cdn_host}"
+      else
+        "#{Transmuxer.config.s3.bucket_name}.s3.amazonaws.com"
+      end
+    end
+
     def processed_file_store_url
-      "https://#{Transmuxer.config.s3.bucket_name}.s3.amazonaws.com/#{self.class.name.tableize}/#{id}/processed"
+      "https://#{asset_url}/#{self.class.name.tableize}/#{id}/processed"
     end
 
     def notifications_url
