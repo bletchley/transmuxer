@@ -27,11 +27,14 @@ module Transmuxer
     end
 
     def transmux
-      job = Transmuxer::Job.new(
+      params = {
         input_url: unprocessed_file_url,
         output_store_path: processed_file_store_path,
-        notifications_url: notifications_url
-      )
+        notifications_url: notifications_url,
+        caption_file_url: self.caption_file_url
+      }
+
+      job = Transmuxer::Job.new(params)
 
       if job.start
         update_columns(
@@ -43,12 +46,24 @@ module Transmuxer
       end
     end
 
+    def transmux_cancel
+      Transmuxer::Job.cancel(zencoder_job_id)
+      update_columns(
+        zencoder_job_id: nil,
+        zencoder_job_state: nil
+      )
+    end
+
     def transmux_progress
       Transmuxer::Job.progress(zencoder_job_id)
     end
 
     def transmux_retry
       Transmuxer::Job.resubmit(zencoder_job_id)
+    end
+
+    def transmux_restart
+      transmux_cancel && transmux
     end
 
     def update_transmuxer_job(attrs = {})
@@ -102,6 +117,10 @@ module Transmuxer
 
     def processed?
       zencoder_job_state == "finished"
+    end
+
+    def processing?
+      zencoder_job_state == "processing"
     end
 
     def failed?

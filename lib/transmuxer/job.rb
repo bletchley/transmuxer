@@ -9,14 +9,22 @@ module Transmuxer
       def resubmit(job_id)
         Zencoder::Job.resubmit(job_id)
       end
+
+      def cancel(job_id)
+        Zencoder::Job.cancel(job_id)
+      end
     end
 
-    attr_accessor :input_url, :output_store_path, :notifications_url
+    attr_accessor :input_url,
+      :output_store_path,
+      :notifications_url,
+      :caption_file_url
 
     def initialize(attributes = {})
       @input_url = attributes[:input_url]
       @output_store_path = attributes[:output_store_path]
       @notifications_url = attributes[:notifications_url]
+      @caption_file_url = attributes[:caption_file_url]
     end
 
     def start
@@ -40,7 +48,7 @@ module Transmuxer
     private
 
     def encoding_settings
-      {
+      settings = {
         input: input_url,
         outputs: [
           {
@@ -350,6 +358,15 @@ module Transmuxer
         ],
         notifications: notifications_url
       }
+      if caption_file_url
+        settings.outputs.each do |o|
+          if o.format == 'mp4'
+            o[:prepare_for_segmenting] = "hls"
+            o[:caption_url] = caption_file_url
+          end
+        end
+      end
+      settings
     end
   end
 end
