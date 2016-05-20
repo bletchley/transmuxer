@@ -360,7 +360,7 @@ module Transmuxer
       }
       if caption_file_url
         settings[:outputs].each do |o|
-          if o.format == 'mp4'
+          if o[:format] == 'mp4'
             o[:prepare_for_segmenting] = "hls"
             o[:caption_url] = caption_file_url
           end
