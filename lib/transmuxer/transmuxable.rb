@@ -5,7 +5,8 @@ module Transmuxer
     extend ActiveSupport::Concern
 
     included do
-      attr_reader :unprocessed_file_url, :processed_file_metadata
+      attr_reader :caption_file_url, :processed_file_metadata,
+                  :unprocessed_file_url
 
       define_model_callbacks :process, :fail
     end
@@ -31,7 +32,7 @@ module Transmuxer
         input_url: unprocessed_file_url,
         output_store_path: processed_file_store_path,
         notifications_url: notifications_url,
-        caption_file_url: self.caption_file_url
+        caption_file_url: caption_file_url
       }
 
       job = Transmuxer::Job.new(params)
