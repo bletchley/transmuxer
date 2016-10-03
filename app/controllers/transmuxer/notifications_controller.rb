@@ -1,6 +1,6 @@
 module Transmuxer
   class NotificationsController < ApplicationController
-    skip_before_filter :verify_authenticity_token
+    skip_before_action :verify_authenticity_token, raise: false
 
     def create
       if resource && resource.zencoder_job_id == params[:job][:id]
