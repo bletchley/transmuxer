@@ -32,7 +32,7 @@ GIT
 PATH
   remote: ../
   specs:
-    transmuxer (1.0.1)
+    transmuxer (1.2.0)
       activerecord (>= 4.0)
       railties (>= 4.0)
       zencoder (~> 2.5.1)
