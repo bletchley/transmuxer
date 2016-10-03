@@ -29,10 +29,14 @@ module Transmuxer
         Video.create(zencoder_job_state: 'failed')
         Video.create(zencoder_job_state: 'processing')
 
-        playback_ready = Video.create(zencoder_job_state: 'playback_ready')
-        processed      = Video.create(zencoder_job_state: 'finished')
+        processed = Video.create(zencoder_job_state: 'finished')
 
-        expect(Video.ready).to eq([playback_ready, processed])
+        # Outliers
+        Video.create(zencoder_job_state: 'playback_ready')
+        Video.create(zencoder_job_state: 'processing')
+        Video.create(zencoder_job_state: 'failed')
+
+        expect(Video.ready).to eq([processed])
       end
     end
   end
@@ -54,11 +58,6 @@ module Transmuxer
   end
 
   describe '#ready?' do
-    it 'returns true if video is ready' do
-      video = Video.create(zencoder_job_state: 'playback_ready')
-      expect(video.ready?).to be true
-    end
-
     it 'returns true if video is finished' do
       video = Video.create(zencoder_job_state: 'finished')
       expect(video.ready?).to be true
@@ -71,6 +70,11 @@ module Transmuxer
 
     it 'returns false if video  failed' do
       video = Video.create(zencoder_job_state: 'failed')
+      expect(video.ready?).to be false
+    end
+
+    it 'returns false if video is ready' do
+      video = Video.create(zencoder_job_state: 'playback_ready')
       expect(video.ready?).to be false
     end
   end
