@@ -55,6 +55,12 @@ module Transmuxer
         expect { video.transmux }.to raise_error(Transmuxer::JobNotStarted, "Oops!")
       end
     end
+
+    it 'passes a passed in audio option to the transmuxer job' do
+      job = double(:job, id: 1, start: true, errors: "Oops!")
+      expect(Transmuxer::Job).to receive(:new).with(hash_including(audio: true)) { job }
+      video.transmux(audio: true)
+    end
   end
 
   describe '#ready?' do

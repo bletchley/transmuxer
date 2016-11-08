@@ -27,16 +27,16 @@ module Transmuxer
       end
     end
 
-    def transmux
+    def transmux(options = {})
+      audio_option = !!options[:audio]
       params = {
         input_url: unprocessed_file_url,
         output_store_path: processed_file_store_path,
         notifications_url: notifications_url,
-        caption_file_url: caption_file_url
+        caption_file_url: caption_file_url,
+        audio: audio_option
       }
-
       job = Transmuxer::Job.new(params)
-
       if job.start
         update_columns(
           zencoder_job_id: job.id,
@@ -110,6 +110,10 @@ module Transmuxer
 
     def hls_file_url
       "#{processed_file_store_url}/index.m3u8"
+    end
+
+    def mp3_file_url
+      "#{processed_file_store_url}/audio.mp3"
     end
 
     def ready?
