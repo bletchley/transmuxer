@@ -77,8 +77,9 @@ end
 
 ```ruby
 m = Medium.first
-m.transmux
+m.transmux 
 ```
+_you can pass `{ audio: true }` to `transmux` if you *only* want to transcode to mp3_
 
 ### Restart Transmuxing
 
