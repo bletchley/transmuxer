@@ -18,11 +18,11 @@ Gem::Specification.new do |spec|
   spec.test_files    = Dir['spec/**/*']
   spec.require_paths = ["lib"]
 
+  spec.add_runtime_dependency 'activerecord', '>= 4.0', '>= 4.0'
+
   spec.add_dependency "zencoder", "~> 2.5.1"
-  spec.add_dependency "activerecord", ">= 4.0"
   spec.add_dependency "railties", ">= 4.0"
 
-  spec.add_development_dependency "activerecord", ">= 4.0"
   spec.add_development_dependency "appraisal", "~> 2.1.0"
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
