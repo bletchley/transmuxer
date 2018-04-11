@@ -3,7 +3,6 @@ class AddTransmuxerTo<%= table_name.camelize %> < ActiveRecord::Migration
     change_table(:<%= table_name %>) do |t|
       t.integer :zencoder_job_id
       t.string :zencoder_job_state
-      t.string :playable_formats
     end
 
     add_index :<%= table_name %>, :zencoder_job_id, unique: true
@@ -11,7 +10,7 @@ class AddTransmuxerTo<%= table_name.camelize %> < ActiveRecord::Migration
 
   def self.down
     change_table(:<%= table_name %>) do |t|
-      t.remove :zencoder_job_id, :zencoder_job_state, :playable_formats
+      t.remove :zencoder_job_id, :zencoder_job_state
     end
   end
 end

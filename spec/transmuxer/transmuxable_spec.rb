@@ -15,7 +15,6 @@ module Transmuxer
     describe '.failed' do
       it 'returns videos that failed processing' do
         Video.create(zencoder_job_state: 'processing')
-        Video.create(zencoder_job_state: 'playback_ready')
         Video.create(zencoder_job_state: 'finished')
 
         match = Video.create(zencoder_job_state: 'failed')
@@ -32,7 +31,6 @@ module Transmuxer
         processed = Video.create(zencoder_job_state: 'finished')
 
         # Outliers
-        Video.create(zencoder_job_state: 'playback_ready')
         Video.create(zencoder_job_state: 'processing')
         Video.create(zencoder_job_state: 'failed')
 
@@ -76,11 +74,6 @@ module Transmuxer
 
     it 'returns false if video  failed' do
       video = Video.create(zencoder_job_state: 'failed')
-      expect(video.ready?).to be false
-    end
-
-    it 'returns false if video is ready' do
-      video = Video.create(zencoder_job_state: 'playback_ready')
       expect(video.ready?).to be false
     end
   end
