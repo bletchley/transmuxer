@@ -88,10 +88,6 @@ module Transmuxer
       "#{processed_file_store_url}/240p.mp4"
     end
 
-    def mp4_web_360_file_url
-      "#{processed_file_store_url}/web-360p.mp4"
-    end
-
     def mp4_360_file_url
       "#{processed_file_store_url}/360p.mp4"
     end
